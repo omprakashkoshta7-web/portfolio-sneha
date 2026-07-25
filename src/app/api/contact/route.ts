@@ -89,9 +89,10 @@ export async function POST(req: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Email error:", error);
+    const message = error instanceof Error ? error.message : "Unknown error";
+    console.error("Email error:", message);
     return NextResponse.json(
-      { error: "Failed to send email. Please try again later." },
+      { error: `Failed to send email: ${message}` },
       { status: 500 }
     );
   }
